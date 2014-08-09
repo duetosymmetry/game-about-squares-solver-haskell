@@ -11,11 +11,18 @@ import qualified Data.Map as Map
 -- TYPES
 ----------------------------------------------------------------------
 
--- I can't use Left and Right because those are for Either
-data Direction = RightD | Up | LeftD | Down
-     deriving (Show, Enum, Eq, Ord, Generic)
+-- In the previous version I used an enumerated type like:
+-- data Direction = RightD | Up | LeftD | Down
+-- But now I am trying it with a pair of Int to see
+-- if that speeds things up.
+data Direction = Direction !Int !Int
+     deriving (Show, Eq, Ord, Generic)
 
-data Position = Position Int Int
+(right, up, left, down) = (Direction   1   0,
+                           Direction   0 (-1),
+                           Direction (-1)  0,
+                           Direction   0   1)
+
      deriving (Show, Eq, Ord, Generic)
 
 -- I am being lazy here, instead of using a better color
@@ -59,10 +66,7 @@ isSolved (Board circs _ ) (State sqs) =
          where isSatisfied c = any (isCircleSquared c) sqs
 
 -- Gives the next position of some direction
-nextDirPos RightD (Position x y) = Position (x+1)  y
-nextDirPos Up     (Position x y) = Position  x    (y-1)
-nextDirPos LeftD  (Position x y) = Position (x-1)  y
-nextDirPos Down   (Position x y) = Position  x    (y+1)
+nextDirPos (Direction dx dy) (Position x y) = Position (x+dx) (y+dy)
 
 -- Test if a square is at a certain position
 isInPosition p0 (Square _ p1 _) = p0 == p1

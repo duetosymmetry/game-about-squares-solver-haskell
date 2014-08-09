@@ -34,23 +34,23 @@ levels = [
  ("hi",
  (
  Board [(Circle (Color "red") (Position 0 2))] [],
- State [(Square (Color "red") (Position 0 0) Down)]
+ State [(Square (Color "red") (Position 0 0) down)]
  )),
  ("hi2",
  (
  Board [(Circle (Color "blue") (Position 0 0)),
  (Circle (Color "red") (Position 2 2))] []
  ,
- State [(Square (Color "blue") (Position 0 2) Up),
- (Square (Color "red") (Position 2 0) Down)]
+ State [(Square (Color "blue") (Position 0 2) up),
+ (Square (Color "red") (Position 2 0) down)]
  )),
  ("hi3",
  (
  Board [(Circle (Color "blue") (Position 0 1)),
  (Circle (Color "red") (Position 0 2))] []
  ,
- State [(Square (Color "blue") (Position 0 0) Down),
- (Square (Color "red") (Position 0 3) Up)]
+ State [(Square (Color "blue") (Position 0 0) down),
+ (Square (Color "red") (Position 0 3) up)]
  )),
  ("order",
  (
@@ -58,9 +58,9 @@ levels = [
  (Circle (Color "blue") (Position 0 1)),
  (Circle (Color "black") (Position 2 2))] []
  ,
- State [(Square (Color "red") (Position 0 2) Up),
- (Square (Color "blue") (Position 2 1) LeftD),
- (Square (Color "black") (Position 2 0) Down)]
+ State [(Square (Color "red") (Position 0 2) up),
+ (Square (Color "blue") (Position 2 1) left),
+ (Square (Color "black") (Position 2 0) down)]
  )),
  ("order2",
  (
@@ -68,25 +68,25 @@ levels = [
  (Circle (Color "blue") (Position 1 0)),
  (Circle (Color "black") (Position 1 1))] []
  ,
- State [(Square (Color "red") (Position 0 0) RightD),
- (Square (Color "blue") (Position 1 2) Up),
- (Square (Color "black") (Position 3 1) LeftD)]
+ State [(Square (Color "red") (Position 0 0) right),
+ (Square (Color "blue") (Position 1 2) up),
+ (Square (Color "black") (Position 3 1) left)]
  )),
  ("stupidpush",
  (
  Board [(Circle (Color "red") (Position 0 2)),
  (Circle (Color "black") (Position 0 3))] []
  ,
- State [(Square (Color "red") (Position 0 0) Down),
- (Square (Color "black") (Position 0 1) Up)]
+ State [(Square (Color "red") (Position 0 0) down),
+ (Square (Color "black") (Position 0 1) up)]
  )),
  ("push",
  (
  Board [(Circle (Color "red") (Position 0 3)),
  (Circle (Color "blue") (Position 2 5))] []
  ,
- State [(Square (Color "blue") (Position 2 0) Down),
- (Square (Color "red") (Position 4 2) LeftD)]
+ State [(Square (Color "blue") (Position 2 0) down),
+ (Square (Color "red") (Position 4 2) left)]
  )),
  ("stairs",
  (
@@ -94,9 +94,9 @@ levels = [
  (Circle (Color "black") (Position 2 2)),
  (Circle (Color "blue") (Position 3 3))] []
  ,
- State [(Square (Color "blue") (Position 0 1) RightD),
- (Square (Color "red") (Position 1 0) Down),
- (Square (Color "black") (Position 2 1) Down)]
+ State [(Square (Color "blue") (Position 0 1) right),
+ (Square (Color "red") (Position 1 0) down),
+ (Square (Color "black") (Position 2 1) down)]
  )),
  ("stairs2",
  (
@@ -104,9 +104,9 @@ levels = [
  (Circle (Color "blue") (Position 2 2)),
  (Circle (Color "black") (Position 3 3))] []
  ,
- State [(Square (Color "blue") (Position 0 1) RightD),
- (Square (Color "red") (Position 1 0) Down),
- (Square (Color "black") (Position 2 1) Down)]
+ State [(Square (Color "blue") (Position 0 1) right),
+ (Square (Color "red") (Position 1 0) down),
+ (Square (Color "black") (Position 2 1) down)]
  )),
  ("lift",
  (
@@ -114,105 +114,105 @@ levels = [
  (Circle (Color "blue") (Position 1 1)),
  (Circle (Color "red") (Position 2 3))] []
  ,
- State [(Square (Color "black") (Position 2 2) Up),
- (Square (Color "blue") (Position 4 1) LeftD),
- (Square (Color "red") (Position 3 0) Down)]
+ State [(Square (Color "black") (Position 2 2) up),
+ (Square (Color "blue") (Position 4 1) left),
+ (Square (Color "red") (Position 3 0) down)]
  )),
  ("presq",
  (
  Board [(Circle (Color "blue") (Position 2 0))]
- [(Arrow (Position 0 2) RightD),
- (Arrow (Position 2 2) Up)]
+ [(Arrow (Position 0 2) right),
+ (Arrow (Position 2 2) up)]
  ,
- State [(Square (Color "blue") (Position 0 0) Down)]
+ State [(Square (Color "blue") (Position 0 0) down)]
  )),
  ("sq",
  (
  Board [(Circle (Color "orange") (Position 2 0)),
  (Circle (Color "black") (Position 3 0))]
- [(Arrow (Position 0 2) RightD),
- (Arrow (Position 2 2) Up)]
+ [(Arrow (Position 0 2) right),
+ (Arrow (Position 2 2) up)]
  ,
- State [(Square (Color "orange") (Position 0 0) Down),
- (Square (Color "black") (Position 0 2) Down)]
+ State [(Square (Color "orange") (Position 0 0) down),
+ (Square (Color "black") (Position 0 2) down)]
  )),
  ("nobrainer",
  (
  Board [(Circle (Color "orange") (Position 1 0)),
  (Circle (Color "blue") (Position 2 0))]
- [(Arrow (Position 3 1) LeftD),
- (Arrow (Position 0 1) RightD),
- (Arrow (Position 2 1) Up)]
+ [(Arrow (Position 3 1) left),
+ (Arrow (Position 0 1) right),
+ (Arrow (Position 2 1) up)]
  ,
- State [(Square (Color "orange") (Position 0 1) Down),
- (Square (Color "blue") (Position 2 1) Down)]
+ State [(Square (Color "orange") (Position 0 1) down),
+ (Square (Color "blue") (Position 2 1) down)]
  )),
  ("crosst",
  (
  Board [(Circle (Color "black") (Position 0 2)),
  (Circle (Color "red") (Position 1 2)),
  (Circle (Color "blue") (Position 3 2))]
- [(Arrow (Position 2 2) RightD)]
+ [(Arrow (Position 2 2) right)]
  ,
- State [(Square (Color "red") (Position 2 0) Down),
- (Square (Color "blue") (Position 4 2) LeftD),
- (Square (Color "black") (Position 2 4) Up)]
+ State [(Square (Color "red") (Position 2 0) down),
+ (Square (Color "blue") (Position 4 2) left),
+ (Square (Color "black") (Position 2 4) up)]
  )),
  ("t",
  (
  Board [(Circle (Color "red") (Position 1 2)),
  (Circle (Color "blue") (Position 2 2)),
  (Circle (Color "black") (Position 3 2))]
- [(Arrow (Position 2 0) Down)]
+ [(Arrow (Position 2 0) down)]
  ,
- State [(Square (Color "red") (Position 0 0) RightD),
- (Square (Color "blue") (Position 4 0) LeftD),
- (Square (Color "black") (Position 2 4) Up)]
+ State [(Square (Color "red") (Position 0 0) right),
+ (Square (Color "blue") (Position 4 0) left),
+ (Square (Color "black") (Position 2 4) up)]
  )),
  ("rotation",
  (
  Board [(Circle (Color "orange") (Position 1 2)),
  (Circle (Color "black") (Position 1 1))]
- [(Arrow (Position 1 0) Down),
- (Arrow (Position 3 1) LeftD)]
+ [(Arrow (Position 1 0) down),
+ (Arrow (Position 3 1) left)]
  ,
- State [(Square (Color "orange") (Position 0 2) RightD),
- (Square (Color "black") (Position 2 3) Up)]
+ State [(Square (Color "orange") (Position 0 2) right),
+ (Square (Color "black") (Position 2 3) up)]
  )),
  ("asymm",
  (
  Board [(Circle (Color "orange") (Position 0 4)),
  (Circle (Color "black") (Position 1 0)),
  (Circle (Color "blue") (Position 1 2))]
- [(Arrow (Position 1 1) Down)]
+ [(Arrow (Position 1 1) down)]
  ,
- State [(Square (Color "orange") (Position 3 3) LeftD),
- (Square (Color "black") (Position 1 1) Down),
- (Square (Color "blue") (Position 2 5) Up)]
+ State [(Square (Color "orange") (Position 3 3) left),
+ (Square (Color "black") (Position 1 1) down),
+ (Square (Color "blue") (Position 2 5) up)]
  )),
  ("herewego",
  (
  Board [(Circle (Color "red") (Position 0 1)),
  (Circle (Color "blue") (Position 3 1))]
- [(Arrow (Position 0 0) RightD),
- (Arrow (Position 2 0) Down),
- (Arrow (Position 2 1) LeftD),
- (Arrow (Position 1 2) Up)]
+ [(Arrow (Position 0 0) right),
+ (Arrow (Position 2 0) down),
+ (Arrow (Position 2 1) left),
+ (Arrow (Position 1 2) up)]
  ,
- State [(Square (Color "red") (Position 0 0) Down),
- (Square (Color "blue") (Position 2 1) Down)]
+ State [(Square (Color "red") (Position 0 0) down),
+ (Square (Color "blue") (Position 2 1) down)]
  )),
  ("preherewego",
  (
  Board [(Circle (Color "red") (Position 1 1)),
  (Circle (Color "blue") (Position (-1) 1))]
- [(Arrow (Position 0 0) RightD),
- (Arrow (Position 2 0) Down),
- (Arrow (Position 2 1) LeftD),
- (Arrow (Position 1 2) Up)]
+ [(Arrow (Position 0 0) right),
+ (Arrow (Position 2 0) down),
+ (Arrow (Position 2 1) left),
+ (Arrow (Position 1 2) up)]
  ,
- State [(Square (Color "red") (Position 2 0) Down),
- (Square (Color "blue") (Position 1 2) Down)]
+ State [(Square (Color "red") (Position 2 0) down),
+ (Square (Color "blue") (Position 1 2) down)]
  )),
  ("clover",
  (
@@ -221,75 +221,75 @@ levels = [
  (Circle (Color "black") (Position 2 2)),
  (Circle (Color "orange") (Position 2 0))] []
  ,
- State [(Square (Color "black") (Position 1 0) Down),
- (Square (Color "orange") (Position 0 1) RightD),
- (Square (Color "red") (Position 2 1) LeftD),
- (Square (Color "blue") (Position 1 2) Up)]
+ State [(Square (Color "black") (Position 1 0) down),
+ (Square (Color "orange") (Position 0 1) right),
+ (Square (Color "red") (Position 2 1) left),
+ (Square (Color "blue") (Position 1 2) up)]
  )),
  ("preduced",
  (
  Board [(Circle (Color "red") (Position 1 1)),
  (Circle (Color "blue") (Position 1 2))]
- [(Arrow (Position 0 0) Down),
- (Arrow (Position 0 1) RightD),
- (Arrow (Position 3 0) LeftD)]
+ [(Arrow (Position 0 0) down),
+ (Arrow (Position 0 1) right),
+ (Arrow (Position 3 0) left)]
  ,
- State [(Square (Color "red") (Position 0 0) Down),
- (Square (Color "blue") (Position 2 2) Up)]
+ State [(Square (Color "red") (Position 0 0) down),
+ (Square (Color "blue") (Position 2 2) up)]
  )),
  ("preduced2",
  (
  Board [(Circle (Color "black") (Position 1 0)),
  (Circle (Color "red") (Position 1 1)),
  (Circle (Color "blue") (Position 1 2))]
- [(Arrow (Position 0 0) Down),
- (Arrow (Position 0 1) RightD)]
+ [(Arrow (Position 0 0) down),
+ (Arrow (Position 0 1) right)]
  ,
- State [(Square (Color "red") (Position 0 0) Down),
- (Square (Color "blue") (Position 2 2) Up),
- (Square (Color "black") (Position 3 0) LeftD)]
+ State [(Square (Color "red") (Position 0 0) down),
+ (Square (Color "blue") (Position 2 2) up),
+ (Square (Color "black") (Position 3 0) left)]
  )),
  ("reduced",
  (
  Board [(Circle (Color "red") (Position 1 1)),
  (Circle (Color "black") (Position 2 1)),
  (Circle (Color "blue") (Position 3 1))]
- [(Arrow (Position 0 0) Down),
- (Arrow (Position 0 1) RightD),
- (Arrow (Position 3 0) LeftD),
- (Arrow (Position 2 2) Up)]
+ [(Arrow (Position 0 0) down),
+ (Arrow (Position 0 1) right),
+ (Arrow (Position 3 0) left),
+ (Arrow (Position 2 2) up)]
  ,
- State [(Square (Color "red") (Position 0 0) Down),
- (Square (Color "blue") (Position 3 0) Down),
- (Square (Color "black") (Position 0 1) Down)]
+ State [(Square (Color "red") (Position 0 0) down),
+ (Square (Color "blue") (Position 3 0) down),
+ (Square (Color "black") (Position 0 1) down)]
  )),
  ("reduced2",
  (
  Board [(Circle (Color "red") (Position 1 1)),
  (Circle (Color "black") (Position 2 1)),
  (Circle (Color "blue") (Position 3 1))]
- [(Arrow (Position 0 0) Down),
- (Arrow (Position 0 1) RightD),
- (Arrow (Position 3 0) LeftD),
- (Arrow (Position 2 2) Up)]
+ [(Arrow (Position 0 0) down),
+ (Arrow (Position 0 1) right),
+ (Arrow (Position 3 0) left),
+ (Arrow (Position 2 2) up)]
  ,
- State [(Square (Color "black") (Position 0 0) Down),
- (Square (Color "blue") (Position 3 0) Down),
- (Square (Color "red") (Position 0 1) Down)]
+ State [(Square (Color "black") (Position 0 0) down),
+ (Square (Color "blue") (Position 3 0) down),
+ (Square (Color "red") (Position 0 1) down)]
  )),
  ("reduced3",
  (
  Board [(Circle (Color "black") (Position 1 2)),
  (Circle (Color "red") (Position 2 1)),
  (Circle (Color "blue") (Position 3 2))]
- [(Arrow (Position 0 0) Down),
- (Arrow (Position 0 1) RightD),
- (Arrow (Position 3 0) LeftD),
- (Arrow (Position 2 2) Up)]
+ [(Arrow (Position 0 0) down),
+ (Arrow (Position 0 1) right),
+ (Arrow (Position 3 0) left),
+ (Arrow (Position 2 2) up)]
  ,
- State [(Square (Color "black") (Position 0 0) Down),
- (Square (Color "blue") (Position 3 0) Down),
- (Square (Color "red") (Position 0 1) Down)]
+ State [(Square (Color "black") (Position 0 0) down),
+ (Square (Color "blue") (Position 3 0) down),
+ (Square (Color "red") (Position 0 1) down)]
  )),
  ("recycle",
  (
@@ -297,17 +297,17 @@ levels = [
  (Circle (Color "blue") (Position 2 0)),
  (Circle (Color "black") (Position 1 1)),
  (Circle (Color "orange") (Position 2 1))]
- [(Arrow (Position 0 0) Down),
- (Arrow (Position 0 1) RightD),
- (Arrow (Position 3 0) LeftD),
- (Arrow (Position 4 0) LeftD),
- (Arrow (Position 3 1) Up),
- (Arrow (Position 4 1) Up)]
+ [(Arrow (Position 0 0) down),
+ (Arrow (Position 0 1) right),
+ (Arrow (Position 3 0) left),
+ (Arrow (Position 4 0) left),
+ (Arrow (Position 3 1) up),
+ (Arrow (Position 4 1) up)]
  ,
- State [(Square (Color "red") (Position 3 1) Down),
- (Square (Color "blue") (Position 3 0) Down),
- (Square (Color "black") (Position 0 1) Down),
- (Square (Color "orange") (Position 0 0) Down)]
+ State [(Square (Color "red") (Position 3 1) down),
+ (Square (Color "blue") (Position 3 0) down),
+ (Square (Color "black") (Position 0 1) down),
+ (Square (Color "orange") (Position 0 0) down)]
  )),
  ("recycle2",
  (
@@ -315,16 +315,16 @@ levels = [
  (Circle (Color "black") (Position 0 1)),
  (Circle (Color "purple") (Position 1 2)),
  (Circle (Color "gray") (Position 2 1))]
- [(Arrow (Position 0 0) Down),
- (Arrow (Position 0 2) RightD),
- (Arrow (Position 2 0) LeftD),
- (Arrow (Position 0 4) Up),
- (Arrow (Position 2 2) Up)]
+ [(Arrow (Position 0 0) down),
+ (Arrow (Position 0 2) right),
+ (Arrow (Position 2 0) left),
+ (Arrow (Position 0 4) up),
+ (Arrow (Position 2 2) up)]
  ,
- State [(Square (Color "black") (Position 0 0) Down),
- (Square (Color "green") (Position 0 2) Down),
- (Square (Color "gray") (Position 2 2) Down),
- (Square (Color "purple") (Position 2 0) Down)]
+ State [(Square (Color "black") (Position 0 0) down),
+ (Square (Color "green") (Position 0 2) down),
+ (Square (Color "gray") (Position 2 2) down),
+ (Square (Color "purple") (Position 2 0) down)]
  )),
  ("recycle3",
  (
@@ -332,93 +332,93 @@ levels = [
  (Circle (Color "yellow") (Position 2 3)),
  (Circle (Color "red") (Position 2 1)),
  (Circle (Color "gray") (Position 0 1))]
- [(Arrow (Position 2 0) LeftD),
- (Arrow (Position 0 0) Down),
- (Arrow (Position 2 4) Up),
- (Arrow (Position 0 2) Up),
- (Arrow (Position 0 3) Down),
- (Arrow (Position 0 4) RightD)]
+ [(Arrow (Position 2 0) left),
+ (Arrow (Position 0 0) down),
+ (Arrow (Position 2 4) up),
+ (Arrow (Position 0 2) up),
+ (Arrow (Position 0 3) down),
+ (Arrow (Position 0 4) right)]
  ,
- State [(Square (Color "red") (Position 0 4) Down),
- (Square (Color "green") (Position 2 4) Down),
- (Square (Color "gray") (Position 0 0) Down),
- (Square (Color "yellow") (Position 2 0) Down)]
+ State [(Square (Color "red") (Position 0 4) down),
+ (Square (Color "green") (Position 2 4) down),
+ (Square (Color "gray") (Position 0 0) down),
+ (Square (Color "yellow") (Position 2 0) down)]
  )),
  ("shuttle",
  (
  Board [(Circle (Color "red") (Position 1 3)),
  (Circle (Color "blue") (Position 2 3)),
  (Circle (Color "black") (Position 3 3))]
- [(Arrow (Position 0 2) RightD),
- (Arrow (Position 4 1) LeftD),
- (Arrow (Position 2 0) Down),
- (Arrow (Position 2 4) Up)]
+ [(Arrow (Position 0 2) right),
+ (Arrow (Position 4 1) left),
+ (Arrow (Position 2 0) down),
+ (Arrow (Position 2 4) up)]
  ,
- State [(Square (Color "blue") (Position 1 0) Down),
- (Square (Color "black") (Position 0 2) Down),
- (Square (Color "red") (Position 4 1) Down)]
+ State [(Square (Color "blue") (Position 1 0) down),
+ (Square (Color "black") (Position 0 2) down),
+ (Square (Color "red") (Position 4 1) down)]
  )),
  ("shuttle2",
  (
  Board [(Circle (Color "red") (Position 1 3)),
  (Circle (Color "blue") (Position 2 3)),
  (Circle (Color "black") (Position 3 3))]
- [(Arrow (Position 0 2) RightD),
- (Arrow (Position 4 1) LeftD),
- (Arrow (Position 3 0) Down),
- (Arrow (Position 3 4) Up)]
+ [(Arrow (Position 0 2) right),
+ (Arrow (Position 4 1) left),
+ (Arrow (Position 3 0) down),
+ (Arrow (Position 3 4) up)]
  ,
- State [(Square (Color "black") (Position 1 0) Down),
- (Square (Color "red") (Position 0 2) Down),
- (Square (Color "blue") (Position 4 1) Down)]
+ State [(Square (Color "black") (Position 1 0) down),
+ (Square (Color "red") (Position 0 2) down),
+ (Square (Color "blue") (Position 4 1) down)]
  )),
  ("shuttle5",
  (
  Board [(Circle (Color "blue") (Position 0 2)),
  (Circle (Color "red") (Position 2 2)),
  (Circle (Color "black") (Position 4 2))]
- [(Arrow (Position 1 1) RightD),
- (Arrow (Position 3 2) LeftD),
- (Arrow (Position 2 0) Down),
- (Arrow (Position 2 4) Up)]
+ [(Arrow (Position 1 1) right),
+ (Arrow (Position 3 2) left),
+ (Arrow (Position 2 0) down),
+ (Arrow (Position 2 4) up)]
  ,
- State [(Square (Color "blue") (Position 2 0) Down),
- (Square (Color "black") (Position 1 1) Down),
- (Square (Color "red") (Position 3 2) Down)]
+ State [(Square (Color "blue") (Position 2 0) down),
+ (Square (Color "black") (Position 1 1) down),
+ (Square (Color "red") (Position 3 2) down)]
  )),
  ("spiral",
  (
  Board [(Circle (Color "red") (Position 0 0)),
  (Circle (Color "blue") (Position 1 1)),
  (Circle (Color "black") (Position 2 2))]
- [(Arrow (Position 0 2) Down),
- (Arrow (Position 3 3) LeftD),
- (Arrow (Position 2 4) Up),
- (Arrow (Position 0 5) RightD),
- (Arrow (Position 3 5) Up),
- (Arrow (Position 1 3) Down),
- (Arrow (Position 1 4) RightD)]
+ [(Arrow (Position 0 2) down),
+ (Arrow (Position 3 3) left),
+ (Arrow (Position 2 4) up),
+ (Arrow (Position 0 5) right),
+ (Arrow (Position 3 5) up),
+ (Arrow (Position 1 3) down),
+ (Arrow (Position 1 4) right)]
  ,
- State [(Square (Color "red") (Position 0 2) Down),
- (Square (Color "black") (Position 2 4) Down),
- (Square (Color "blue") (Position 1 3) Down)]
+ State [(Square (Color "red") (Position 0 2) down),
+ (Square (Color "black") (Position 2 4) down),
+ (Square (Color "blue") (Position 1 3) down)]
  )),
  ("spiral2",
  (
  Board [(Circle (Color "red") (Position 2 (-1))),
  (Circle (Color "blue") (Position 2 1)),
  (Circle (Color "black") (Position 2 3))]
- [(Arrow (Position 0 2) Down),
- (Arrow (Position 3 3) LeftD),
- (Arrow (Position 2 4) Up),
- (Arrow (Position 0 5) RightD),
- (Arrow (Position 3 5) Up),
- (Arrow (Position 1 3) Down),
- (Arrow (Position 1 4) RightD)]
+ [(Arrow (Position 0 2) down),
+ (Arrow (Position 3 3) left),
+ (Arrow (Position 2 4) up),
+ (Arrow (Position 0 5) right),
+ (Arrow (Position 3 5) up),
+ (Arrow (Position 1 3) down),
+ (Arrow (Position 1 4) right)]
  ,
- State [(Square (Color "red") (Position 0 2) Down),
- (Square (Color "black") (Position 2 4) Down),
- (Square (Color "blue") (Position 1 3) Down)]
+ State [(Square (Color "red") (Position 0 2) down),
+ (Square (Color "black") (Position 2 4) down),
+ (Square (Color "blue") (Position 1 3) down)]
  )),
  ("windmill",
  (
@@ -426,93 +426,93 @@ levels = [
  (Circle (Color "blue") (Position 3 2)),
  (Circle (Color "black") (Position 2 3)),
  (Circle (Color "orange") (Position 1 2))]
- [(Arrow (Position 2 0) Down),
- (Arrow (Position 4 2) LeftD),
- (Arrow (Position 2 4) Up)]
+ [(Arrow (Position 2 0) down),
+ (Arrow (Position 4 2) left),
+ (Arrow (Position 2 4) up)]
  ,
- State [(Square (Color "blue") (Position 2 0) Down),
- (Square (Color "black") (Position 4 2) Down),
- (Square (Color "orange") (Position 2 4) Down),
- (Square (Color "red") (Position 0 2) RightD)]
+ State [(Square (Color "blue") (Position 2 0) down),
+ (Square (Color "black") (Position 4 2) down),
+ (Square (Color "orange") (Position 2 4) down),
+ (Square (Color "red") (Position 0 2) right)]
  )),
  ("shirt",
  (
  Board [(Circle (Color "red") (Position 2 0))]
- [(Arrow (Position 0 2) RightD),
- (Arrow (Position 1 0) Down),
- (Arrow (Position 1 4) Up),
- (Arrow (Position 4 3) LeftD)]
+ [(Arrow (Position 0 2) right),
+ (Arrow (Position 1 0) down),
+ (Arrow (Position 1 4) up),
+ (Arrow (Position 4 3) left)]
  ,
- State [(Square (Color "red") (Position 0 2) Down),
- (Square (Color "blue") (Position 1 0) Down),
- (Square (Color "black") (Position 4 1) Down)]
+ State [(Square (Color "red") (Position 0 2) down),
+ (Square (Color "blue") (Position 1 0) down),
+ (Square (Color "black") (Position 4 1) down)]
  )),
  ("shirt2",
  (
  Board [(Circle (Color "blue") (Position 0 1))]
- [(Arrow (Position 0 2) RightD),
- (Arrow (Position 1 0) Down),
- (Arrow (Position 1 4) Up),
- (Arrow (Position 4 3) LeftD)]
+ [(Arrow (Position 0 2) right),
+ (Arrow (Position 1 0) down),
+ (Arrow (Position 1 4) up),
+ (Arrow (Position 4 3) left)]
  ,
- State [(Square (Color "red") (Position 0 2) Down),
- (Square (Color "blue") (Position 1 0) Down),
- (Square (Color "black") (Position 4 1) Down)]
+ State [(Square (Color "red") (Position 0 2) down),
+ (Square (Color "blue") (Position 1 0) down),
+ (Square (Color "black") (Position 4 1) down)]
  )),
  ("shirtDouble",
  (
  Board [(Circle (Color "red") (Position 2 0)),
  (Circle (Color "blue") (Position 0 1))]
- [(Arrow (Position 0 2) RightD),
- (Arrow (Position 1 0) Down),
- (Arrow (Position 1 4) Up),
- (Arrow (Position 4 3) LeftD)]
+ [(Arrow (Position 0 2) right),
+ (Arrow (Position 1 0) down),
+ (Arrow (Position 1 4) up),
+ (Arrow (Position 4 3) left)]
  ,
- State [(Square (Color "red") (Position 0 2) Down),
- (Square (Color "blue") (Position 1 0) Down),
- (Square (Color "black") (Position 4 1) Down)]
+ State [(Square (Color "red") (Position 0 2) down),
+ (Square (Color "blue") (Position 1 0) down),
+ (Square (Color "black") (Position 4 1) down)]
  )),
  ("paper",
  (
  Board [(Circle (Color "red") (Position 0 2)),
  (Circle (Color "blue") (Position 0 1)),
  (Circle (Color "black") (Position 1 0))]
- [(Arrow (Position 0 0) Down),
- (Arrow (Position 3 0) LeftD),
- (Arrow (Position 0 3) RightD),
- (Arrow (Position 2 3) Up)]
+ [(Arrow (Position 0 0) down),
+ (Arrow (Position 3 0) left),
+ (Arrow (Position 0 3) right),
+ (Arrow (Position 2 3) up)]
  ,
- State [(Square (Color "blue") (Position 2 3) Down),
- (Square (Color "red") (Position 0 3) Down),
- (Square (Color "black") (Position 0 0) Down)]
+ State [(Square (Color "blue") (Position 2 3) down),
+ (Square (Color "red") (Position 0 3) down),
+ (Square (Color "black") (Position 0 0) down)]
  )),
  ("splinter",
  (
  Board [(Circle (Color "red") (Position 0 0)),
  (Circle (Color "blue") (Position 1 0)),
  (Circle (Color "black") (Position 2 0))]
- [(Arrow (Position 0 1) Down),
- (Arrow (Position 0 3) RightD),
- (Arrow (Position 2 3) Up),
- (Arrow (Position 3 1) LeftD)]
+ [(Arrow (Position 0 1) down),
+ (Arrow (Position 0 3) right),
+ (Arrow (Position 2 3) up),
+ (Arrow (Position 3 1) left)]
  ,
- State [(Square (Color "blue") (Position 0 1) Down),
- (Square (Color "black") (Position 0 3) Down),
- (Square (Color "red") (Position 2 3) Down)]
+ State [(Square (Color "blue") (Position 0 1) down),
+ (Square (Color "black") (Position 0 3) down),
+ (Square (Color "red") (Position 2 3) down)]
  )),
  ("splinter2",
  (
  Board [(Circle (Color "blue") (Position 0 0)),
  (Circle (Color "red") (Position 1 0)),
  (Circle (Color "black") (Position 2 0))]
- [(Arrow (Position 1 1) Down),
- (Arrow (Position 1 3) RightD),
- (Arrow (Position 3 3) Up),
- (Arrow (Position 4 1) LeftD)]
+ [(Arrow (Position 1 1) down),
+ (Arrow (Position 1 3) right),
+ (Arrow (Position 3 3) up),
+ (Arrow (Position 4 1) left)]
  ,
- State [(Square (Color "blue") (Position 1 1) Down),
- (Square (Color "black") (Position 1 3) Down),
- (Square (Color "red") (Position 3 3) Down)]
+ State [(Square (Color "blue") (Position 1 1) down),
+ (Square (Color "black") (Position 1 3) down),
+ (Square (Color "red") (Position 3 3) down)]
  )),
  ("elegant",
  (
@@ -520,27 +520,27 @@ levels = [
  (Circle (Color "orange") (Position 2 0)),
  (Circle (Color "black") (Position 3 2)),
  (Circle (Color "red") (Position 1 3))]
- [(Arrow (Position 1 0) Down),
- (Arrow (Position 0 2) RightD),
- (Arrow (Position 3 1) LeftD),
- (Arrow (Position 2 3) Up)]
+ [(Arrow (Position 1 0) down),
+ (Arrow (Position 0 2) right),
+ (Arrow (Position 3 1) left),
+ (Arrow (Position 2 3) up)]
  ,
- State [(Square (Color "blue") (Position 0 2) Down),
- (Square (Color "red") (Position 2 3) Down),
- (Square (Color "black") (Position 3 1) Down),
- (Square (Color "orange") (Position 1 0) Down)]
+ State [(Square (Color "blue") (Position 0 2) down),
+ (Square (Color "red") (Position 2 3) down),
+ (Square (Color "black") (Position 3 1) down),
+ (Square (Color "orange") (Position 1 0) down)]
  )),
  ("elegant2",
  (
  Board [(Circle (Color "black") (Position 2 0)),
  (Circle (Color "red") (Position 3 0)),
  (Circle (Color "orange") (Position 4 0))]
- [(Arrow (Position 1 0) Down),
- (Arrow (Position 0 3) RightD),
- (Arrow (Position 3 4) Up),
- (Arrow (Position 4 1) LeftD)]
+ [(Arrow (Position 1 0) down),
+ (Arrow (Position 0 3) right),
+ (Arrow (Position 3 4) up),
+ (Arrow (Position 4 1) left)]
  ,
- State [(Square (Color "black") (Position 2 4) RightD),
- (Square (Color "orange") (Position 0 4) RightD),
- (Square (Color "red") (Position 1 4) RightD)]
+ State [(Square (Color "black") (Position 2 4) right),
+ (Square (Color "orange") (Position 0 4) right),
+ (Square (Color "red") (Position 1 4) right)]
  ))]

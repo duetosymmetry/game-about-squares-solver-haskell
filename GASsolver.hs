@@ -15,7 +15,7 @@ import qualified Data.Map as Map
 data Direction = RightD | Up | LeftD | Down
      deriving (Show, Enum, Eq, Ord, Generic)
 
-data Position = Position Integer Integer
+data Position = Position Int Int
      deriving (Show, Eq, Ord, Generic)
 
 -- I am being lazy here, instead of using a better color

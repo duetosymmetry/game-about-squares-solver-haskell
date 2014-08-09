@@ -189,9 +189,10 @@ trySolveLevel' board initState maxDepth =
   case result of
     Nothing      -> putStr $ "Failed to solve in " ++
                               show maxDepth ++ " moves," ++
-                              " explored " ++ show (Map.size smap) ++ "\n"
+                              " explored " ++ show (Map.size smap) ++
+                              " states\n"
     (Just moves) -> putStr $ "Solved in " ++
                               show (length moves - 1) ++ " moves,"++
-                              " explored " ++ show (Map.size smap) ++ "\n" ++
-                              moveListStr' (Just moves)
+                              " explored " ++ show (Map.size smap) ++
+                              " states\n" ++ moveListStr' (Just moves)
     where (smap, result) = trySolveLevel board initState maxDepth

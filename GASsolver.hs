@@ -15,7 +15,7 @@ import qualified Data.Map as Map
 data Direction = RightD | Up | LeftD | Down
      deriving (Show, Enum, Eq, Ord, Generic)
 
-data Position = Position Int Int
+data Position = Position !Int !Int
      deriving (Show, Eq, Ord, Generic)
 
 -- I am being lazy here, instead of using a better color
@@ -23,7 +23,7 @@ data Position = Position Int Int
 newtype Color = Color String
         deriving (Show, Eq, Ord, Generic)
 
-data Square = Square Color Position Direction
+data Square = Square Color !Position !Direction
      deriving (Show, Eq, Ord, Generic)
 
 -- Do I really need to wrap up [Square] into State?

@@ -14,8 +14,9 @@ To compile: `ghc --make Levels`.
 
 To run: `./Levels [original level number]`.
 
-Or load interactively:
+Or load interactively in `ghci`:
 ```
+:load Levels
 trySolveOrigLevelNum origLevelNum
 -- or use the lower-level driver
 let Just (board, initState) = origLevelByNumber 15

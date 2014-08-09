@@ -1,4 +1,5 @@
 import System.Environment
+import Data.List
 import GASsolver
 
 levelByName name = 
@@ -25,6 +26,9 @@ main = do
 -- (see https://github.com/zwegner/game-about-squares-solver)
 -- from where this data came.
 origLevels = words "hi hi3 order2 push stairs stairs2 lift presq sq nobrainer crosst t rotation asymm clover preduced herewego reduced reduced2 spiral2 recycle2 recycle3 shirt shuttle spiral splinter elegant shuttle2 shirt2 windmill paper shuttle5 shirtDouble splinter2 reduced3 elegant2"
+
+allLevels = map fst levels
+hiddenLevels = allLevels \\ origLevels
 
 levels = [
  ("hi",

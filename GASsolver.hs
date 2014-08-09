@@ -23,6 +23,7 @@ data Direction = Direction !Int !Int
                            Direction (-1)  0,
                            Direction   0   1)
 
+data Position = Position !Int !Int
      deriving (Show, Eq, Ord, Generic)
 
 -- I am being lazy here, instead of using a better color
@@ -30,7 +31,7 @@ data Direction = Direction !Int !Int
 newtype Color = Color String
         deriving (Show, Eq, Ord, Generic)
 
-data Square = Square Color Position Direction
+data Square = Square Color !Position !Direction
      deriving (Show, Eq, Ord, Generic)
 
 -- Do I really need to wrap up [Square] into State?

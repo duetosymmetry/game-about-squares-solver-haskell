@@ -150,7 +150,7 @@ moveListStr' (Just moves) = moveListStrHelper' 0 moves
 moveListStr' Nothing      = "\n"
 
 -- insert on state-triple into smap
-insertOne striple@(State s, _, _) = Map.insert (hash s) striple
+insertOne striple@(state, _, _) = Map.insert (hash state) striple
 
 -- insert a list of state-triples
 insertMany striples smap = foldl (flip insertOne) smap striples

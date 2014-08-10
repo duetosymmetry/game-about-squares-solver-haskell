@@ -42,7 +42,14 @@ data Board = Board [Circle] [Arrow]
 instance Hashable Direction
 instance Hashable Position
 instance Hashable Color
-instance Hashable Square
+-- I need to implement a different hash for Square because
+-- the default hash actually had some collisions!!!!!!!!!!
+-- I just add some magic numbers in such a way that I've found
+-- that I no longer have collisions.
+instance Hashable Square where
+  hashWithSalt s (Square (Color c) (Position x y) d) =
+    hashWithSalt s (c, 100+x, 200+y, 300+(fromEnum d))
+
 instance Hashable State
 
 ----------------------------------------------------------------------

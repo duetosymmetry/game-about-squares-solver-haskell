@@ -56,7 +56,7 @@ instance Hashable Color
 -- that I no longer have collisions.
 instance Hashable Square where
   hashWithSalt s (Square (Color c) (Position x y) (Direction dx dy)) =
-    hashWithSalt s (c, 100+x, 200+y, 300+dx, 400+dy)
+    hashWithSalt s (((x*0x1000+y)*0x1000+dx)*0x1000+dy, c)
 
 instance Hashable State
 

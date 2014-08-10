@@ -31,20 +31,20 @@ data Position = Position !Int !Int
 newtype Color = Color String
         deriving (Show, Eq, Ord, Generic)
 
-data Square = Square Color !Position !Direction
+data Square = Square !Color !Position !Direction
      deriving (Show, Eq, Ord, Generic)
 
 -- Do I really need to wrap up [Square] into State?
 newtype State = State [Square]
         deriving (Show, Eq, Ord, Generic)
 
-data Circle = Circle Color Position
+data Circle = Circle !Color !Position
      deriving (Show)
 
-data Arrow = Arrow Position Direction
+data Arrow = Arrow !Position !Direction
      deriving (Show)
 
-data Board = Board [Circle] [Arrow]
+data Board = Board ![Circle] ![Arrow]
      deriving (Show)
 
 instance Hashable Direction

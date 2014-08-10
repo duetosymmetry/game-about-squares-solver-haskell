@@ -118,10 +118,20 @@ levelPossibilities board states =
   nubBy sameState $ concatMap (possibilities board) states
     where sameState (s1, _, _) (s2, _, _) = s1==s2
 
+-- Testing if I have hash collisions with distinct states
+notIn' (state, _, _) smap =
+  case Map.member (hash state) smap of
+    False  -> True -- not in smap
+    True -> case (state == lookupstate) of -- in smap
+               True  -> False     -- in smap and same state
+               False ->  error ("states:\n" ++ show state ++ "\n" ++ show lookupstate ++ "\nhashes: " ++ show (hash state) ++ " " ++ show (hash lookupstate))
+             where Just (lookupstate, _, _) = Map.lookup (hash state) smap
+
 -- This is the set of unique possibilities which are not in the state-map
 unexploredPossibilities smap board states =
   filter notIn $ levelPossibilities board states
-    where notIn (state, _, _) = Map.notMember (hash state) smap
+    where notIn stateTriple = notIn' stateTriple smap
+--    where notIn (state, _, _) = Map.notMember (hash state) smap
 
 -- get the order of moves that went to a certain one
 moveSequence smap [] = Nothing

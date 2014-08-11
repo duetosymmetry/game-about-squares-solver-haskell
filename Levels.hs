@@ -11,7 +11,7 @@ levelByName name =
 origLevelByNumber i = levelByName $ origLevels !! i
 
 trySolveOrigLevelNum i =
-  trySolveLevel' board initState 30
+  trySolveLevel' board initState 42
   where (Just (board, initState)) = origLevelByNumber i
 
 main = do 

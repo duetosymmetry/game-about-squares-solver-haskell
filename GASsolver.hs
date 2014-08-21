@@ -115,7 +115,7 @@ possibilities board state@(State sqs) =
 -- This is the set of *unique* possibilities resulting from a list states
 levelPossibilities board states =
   rmdups $ concatMap (possibilities board) states
-    where rmdups = map head . (groupBy sameState) . sort
+    where rmdups = map head . groupBy sameState . sort
           sameState (s1, _, _) (s2, _, _) = s1==s2
 
 -- This is the set of unique possibilities which are not in the state-map

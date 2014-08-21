@@ -1,8 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
-
 module GASsolver where
 
-import GHC.Generics (Generic)
 import Data.List
 import Data.Hashable
 import qualified Data.Map as Map
@@ -13,22 +10,22 @@ import qualified Data.Map as Map
 
 -- I can't use Left and Right because those are for Either
 data Direction = RightD | Up | LeftD | Down
-     deriving (Show, Enum, Eq, Ord, Generic)
+     deriving (Show, Enum, Eq, Ord)
 
 data Position = Position !Int !Int
-     deriving (Show, Eq, Ord, Generic)
+     deriving (Show, Eq, Ord)
 
 -- I am being lazy here, instead of using a better color
 -- type like Data.Colour
 newtype Color = Color String
-        deriving (Show, Eq, Ord, Generic)
+        deriving (Show, Eq, Ord)
 
 data Square = Square !Color !Position !Direction
-     deriving (Show, Eq, Ord, Generic)
+     deriving (Show, Eq, Ord)
 
 -- Do I really need to wrap up [Square] into State?
 newtype State = State [Square]
-        deriving (Show, Eq, Ord, Generic)
+        deriving (Show, Eq, Ord)
 
 data Circle = Circle !Color !Position
      deriving (Show)
@@ -39,9 +36,8 @@ data Arrow = Arrow !Position !Direction
 data Board = Board ![Circle] ![Arrow]
      deriving (Show)
 
-instance Hashable Direction
-instance Hashable Position
-instance Hashable Color
+instance Hashable Color where
+  hashWithSalt s (Color string) = hashWithSalt s string
 -- I need to implement a different hash for Square because
 -- the default hash actually had some collisions!!!!!!!!!!
 -- I just add some magic numbers in such a way that I've found
@@ -50,7 +46,8 @@ instance Hashable Square where
   hashWithSalt s (Square (Color c) (Position x y) d) =
     hashWithSalt s ((x*0x1000 + y)*0x1000+(fromEnum d), c)
 
-instance Hashable State
+instance Hashable State where
+  hashWithSalt s (State sqs) = hashWithSalt s sqs
 
 ----------------------------------------------------------------------
 -- Basic game stuff

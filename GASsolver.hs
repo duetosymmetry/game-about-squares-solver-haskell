@@ -134,33 +134,23 @@ moveSequence smap moves@((_, _, Just priorHash):rest) =
 ----------------------------------------------------------------------
 -- For printing
 ----------------------------------------------------------------------
-moveColorSequence = map (\(_, color, _) -> color)
-
-moveListStrHelper i [] = "\n"
-moveListStrHelper i ((State s, c, _):rest) =
-  show i ++ ". " ++ c ++ ", " ++ show s ++ "\n"
-    ++ moveListStrHelper (i+1) rest
-
-moveListStrHelper2 i [] = "\n"
-moveListStrHelper2 i (color:rest) =
-  show i ++ ". " ++ color ++ "\n" ++ moveListStrHelper2 (i+1) rest
-
-moveListStr (Just moves) = moveListStrHelper 0 moves
+moveListStr (Just moves) =
+  flip (++) "\n" . intercalate "\n" . map (\((State s, c, _),y) -> show y ++ ". " ++ c ++ " " ++ show s) . zip moves $ [0..]
 moveListStr Nothing      = "\n"
 
-moveListStr2 (Just moves) = moveListStrHelper2 0 $ moveColorSequence moves
+moveColorSequence = map (\(_, color, _) -> color)
+
+moveListStr2 (Just moves) =
+  flip (++) "\n" . intercalate "\n" . map (\(x,y) -> show y ++ ". " ++ x) . zip (moveColorSequence moves) $ [0..]
 moveListStr2 Nothing      = "\n"
 
-moveListStrHelper3 i [] = "\n"
-moveListStrHelper3 i ([colorSingle]:rest) =
-  show i ++ ". " ++ colorSingle ++ "\n" ++ moveListStrHelper3 (i+1) rest
-moveListStrHelper3 i (colorMultiple:rest) =
-  show i ++ "-" ++ show (i+num-1) ++ ". " ++ head colorMultiple
-         ++ " (" ++ show num ++ "x) \n"
-         ++ moveListStrHelper3 (i+num) rest
-  where num = length colorMultiple
+moveListStrHelper [(color,number)]        = show number ++ ". " ++ color
+moveListStrHelper moves@((color,first):_) = show first ++ "-" ++ show (first+num-1) ++ ". "
+                                               ++ color ++ " (" ++ show num ++ "x)"
+                                             where num = length moves
 
-moveListStr3 (Just moves) = moveListStrHelper3 0 . group . moveColorSequence $ moves
+moveListStr3 (Just moves) =
+  flip (++) "\n" . intercalate "\n" . map moveListStrHelper . groupBy (\x y -> fst x == fst y) . zip (moveColorSequence moves) $ [0..]
 moveListStr3 Nothing = "\n"
 
 ----------------------------------------------------------------------

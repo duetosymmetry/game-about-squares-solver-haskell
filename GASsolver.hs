@@ -134,20 +134,34 @@ moveSequence smap moves@((_, _, Just priorHash):rest) =
 ----------------------------------------------------------------------
 -- For printing
 ----------------------------------------------------------------------
+moveColorSequence = map (\(_, color, _) -> color)
+
 moveListStrHelper i [] = "\n"
-moveListStrHelper i ((State s, c, _):rest) = 
+moveListStrHelper i ((State s, c, _):rest) =
   show i ++ ". " ++ c ++ ", " ++ show s ++ "\n"
     ++ moveListStrHelper (i+1) rest
 
-moveListStrHelper' i [] = "\n"
-moveListStrHelper' i ((State s, c, _):rest) = 
-  show i ++ ". " ++ c ++ "\n" ++ moveListStrHelper' (i+1) rest
+moveListStrHelper2 i [] = "\n"
+moveListStrHelper2 i (color:rest) =
+  show i ++ ". " ++ color ++ "\n" ++ moveListStrHelper2 (i+1) rest
 
 moveListStr (Just moves) = moveListStrHelper 0 moves
 moveListStr Nothing      = "\n"
 
-moveListStr' (Just moves) = moveListStrHelper' 0 moves
-moveListStr' Nothing      = "\n"
+moveListStr2 (Just moves) = moveListStrHelper2 0 $ moveColorSequence moves
+moveListStr2 Nothing      = "\n"
+
+moveListStrHelper3 i [] = "\n"
+moveListStrHelper3 i ([colorSingle]:rest) =
+  show i ++ ". " ++ colorSingle ++ "\n" ++ moveListStrHelper3 (i+1) rest
+moveListStrHelper3 i (colorMultiple:rest) =
+  show i ++ "-" ++ show (i+num-1) ++ ". " ++ head colorMultiple
+         ++ " (" ++ show num ++ "x) \n"
+         ++ moveListStrHelper3 (i+num) rest
+  where num = length colorMultiple
+
+moveListStr3 (Just moves) = moveListStrHelper3 0 . group . moveColorSequence $ moves
+moveListStr3 Nothing = "\n"
 
 ----------------------------------------------------------------------
 -- For the hash Map
@@ -209,5 +223,5 @@ trySolveLevel' board initState maxDepth =
     (Just moves) -> putStr $ "Solved in " ++
                               show (length moves - 1) ++ " moves,"++
                               " explored " ++ show (Map.size smap) ++
-                              " states\n" ++ moveListStr' (Just moves)
+                              " states\n" ++ moveListStr3 (Just moves)
     where (smap, result) = trySolveLevel board initState maxDepth

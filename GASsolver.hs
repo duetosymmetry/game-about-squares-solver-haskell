@@ -102,7 +102,7 @@ pushedState (Board _ arrs) (State sqs) i =
           unpushed              = sqs \\ pushedSqs
 
 ----------------------------------------------------------------------
--- Approach to solving
+-- Possibilities for solving
 ----------------------------------------------------------------------
 
 -- All the possible resulting states from an individual state, along with
@@ -131,7 +131,9 @@ moveSequence smap moves@((_, _, Just priorHash):rest) =
     Nothing        -> Nothing
     Just priorMove -> moveSequence smap (priorMove:moves)
 
+----------------------------------------------------------------------
 -- For printing
+----------------------------------------------------------------------
 moveListStrHelper i [] = "\n"
 moveListStrHelper i ((State s, c, _):rest) = 
   show i ++ ". " ++ c ++ ", " ++ show s ++ "\n"
@@ -147,11 +149,18 @@ moveListStr Nothing      = "\n"
 moveListStr' (Just moves) = moveListStrHelper' 0 moves
 moveListStr' Nothing      = "\n"
 
--- insert on state-triple into smap
+----------------------------------------------------------------------
+-- For the hash Map
+----------------------------------------------------------------------
+-- insert one state-triple into smap
 insertOne striple@(state, _, _) = Map.insert (hash state) striple
 
 -- insert a list of state-triples
 insertMany striples smap = foldl (flip insertOne) smap striples
+
+----------------------------------------------------------------------
+-- The depth-first search driver
+----------------------------------------------------------------------
 
 {- Let's say that we've explored to a depth of n moves,
    with the states stored in smap, and this past level's states
@@ -178,6 +187,7 @@ exploreDepth board i smap levelStateTriples =
       Right solved             -> (smap', Right solved)
       Left  levelStateTriples' -> exploreDepth board (i-1) smap' levelStateTriples'
 
+----------------------------------------------------------------------
 -- the main driver.
 -- Upon success, returns (smap, Just moveSequence)
 -- Upon failure, returns (smap, Nothing)

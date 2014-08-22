@@ -33,7 +33,13 @@ data Circle = Circle !Color !Position
 data Arrow = Arrow !Position !Direction
      deriving (Show)
 
-data Board = Board ![Circle] ![Arrow]
+-- The arguments to Box are Box xmin xmax ymin ymax.
+-- These x,y values are inclusive, i.e. something is inside
+-- the box if xmin <= x <= xmax and similar for y.
+data Box = Box !Int !Int !Int !Int
+     deriving (Show)
+
+data Board = Board ![Circle] ![Arrow] !Box
      deriving (Show)
 
 instance Hashable Color where
@@ -58,7 +64,7 @@ isCircleSquared (Circle cirCol cirPos) (Square sqrCol sqrPos _) =
                 cirCol==sqrCol && cirPos==sqrPos
 
 -- Is a board solved by a state?
-isSolved (Board circs _ ) (State sqs) =
+isSolved (Board circs _ _) (State sqs) =
          all isSatisfied circs
          where isSatisfied c = any (isCircleSquared c) sqs
 
@@ -95,11 +101,38 @@ setArrow (Arrow arrPos d) = map setArrow1
 setArrows arrows sqs = foldl (flip setArrow) sqs arrows
 
 -- Get the pushed state when the ith square is pushed
-pushedState (Board _ arrs) (State sqs) i =
+pushedState (Board _ arrs _) (State sqs) i =
   State $ sort $ setArrows arrs (unpushed ++ doPush d pushedSqs)
     where pusher@(Square _ _ d) = sqs !! i
           pushedSqs             = pushed d [pusher] sqs
           unpushed              = sqs \\ pushedSqs
+
+----------------------------------------------------------------------
+-- Bounding box filter
+----------------------------------------------------------------------
+emptyBox = Box 0 0 0 0
+
+computeBoardBox (Board circs arrs _) =
+  Box xmin xmax ymin ymax
+  where circxs = map (\(Circle _ (Position x y)) -> x) circs
+        circys = map (\(Circle _ (Position x y)) -> y) circs
+        arrxs = map (\(Arrow (Position x y) _) -> x) arrs
+        arrys = map (\(Arrow (Position x y) _) -> y) arrs
+        xs = circxs ++ arrxs
+        ys = circys ++ arrys
+        xmin = minimum xs
+        xmax = maximum xs
+        ymin = minimum ys
+        ymax = maximum ys
+
+inBox (Box xmin xmax ymin ymax) (Position x y) =
+  (xmin <= x) && (x <= xmax) && (ymin <= y) && (y <= ymax)
+
+padBox (Box xmin xmax ymin ymax) pad =
+  Box (xmin-pad) (xmax+pad) (ymin-pad) (ymax+pad)
+
+setBoardPadBox b@(Board circs arrs _) =
+  Board circs arrs . padBox (computeBoardBox b)
 
 ----------------------------------------------------------------------
 -- Possibilities for solving
@@ -123,6 +156,10 @@ unexploredPossibilities smap board states =
   filter notIn $ levelPossibilities board states
     where notIn (state, _, _) = Map.notMember (hash state) smap
 
+----------------------------------------------------------------------
+-- For printing
+----------------------------------------------------------------------
+
 -- get the order of moves that went to a certain one
 moveSequence smap [] = Nothing
 moveSequence smap moves@((_, _, Nothing):rest) = Just moves
@@ -131,9 +168,6 @@ moveSequence smap moves@((_, _, Just priorHash):rest) =
     Nothing        -> Nothing
     Just priorMove -> moveSequence smap (priorMove:moves)
 
-----------------------------------------------------------------------
--- For printing
-----------------------------------------------------------------------
 moveListStr (Just moves) =
   flip (++) "\n" . intercalate "\n" . map (\((State s, c, _),y) -> show y ++ ". " ++ c ++ " " ++ show s) . zip moves $ [0..]
 moveListStr Nothing      = "\n"

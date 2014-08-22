@@ -2,11 +2,7 @@ import System.Environment
 import Data.List
 import GASsolver
 
-levelByName name = 
-  case (lookup name levels) of
-    Nothing -> Nothing
-    Just (b@(Board circs arrs), State sqs) -> 
-        Just (b, State (setArrows arrs sqs))
+levelByName name = lookup name levels
 
 origLevelByNumber i = levelByName $ origLevels !! i
 
@@ -30,17 +26,21 @@ origLevels = words "hi hi3 order2 push stairs stairs2 lift presq sq nobrainer cr
 allLevels = map fst levels
 hiddenLevels = allLevels \\ origLevels
 
-levels = [
+cleanDirtyLevel (name, (b@(Board circs arrs _), State sqs)) =
+  (name, (Board circs arrs $ padBox (computeBoardBox b) (length sqs),
+          State (setArrows arrs sqs)))
+
+levels = map cleanDirtyLevel [
  ("hi",
  (
- Board [(Circle (Color "red") (Position 0 2))] [],
+ Board [(Circle (Color "red") (Position 0 2))] [] emptyBox,
  State [(Square (Color "red") (Position 0 0) Down)]
  )),
  ("hi2",
  (
  Board [(Circle (Color "blue") (Position 0 0)),
  (Circle (Color "red") (Position 2 2))] []
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 0 2) Up),
  (Square (Color "red") (Position 2 0) Down)]
  )),
@@ -48,7 +48,7 @@ levels = [
  (
  Board [(Circle (Color "blue") (Position 0 1)),
  (Circle (Color "red") (Position 0 2))] []
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 0 0) Down),
  (Square (Color "red") (Position 0 3) Up)]
  )),
@@ -57,7 +57,7 @@ levels = [
  Board [(Circle (Color "red") (Position 0 0)),
  (Circle (Color "blue") (Position 0 1)),
  (Circle (Color "black") (Position 2 2))] []
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 2) Up),
  (Square (Color "blue") (Position 2 1) LeftD),
  (Square (Color "black") (Position 2 0) Down)]
@@ -67,7 +67,7 @@ levels = [
  Board [(Circle (Color "red") (Position 2 0)),
  (Circle (Color "blue") (Position 1 0)),
  (Circle (Color "black") (Position 1 1))] []
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 0) RightD),
  (Square (Color "blue") (Position 1 2) Up),
  (Square (Color "black") (Position 3 1) LeftD)]
@@ -76,7 +76,7 @@ levels = [
  (
  Board [(Circle (Color "red") (Position 0 2)),
  (Circle (Color "black") (Position 0 3))] []
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 0) Down),
  (Square (Color "black") (Position 0 1) Up)]
  )),
@@ -84,7 +84,7 @@ levels = [
  (
  Board [(Circle (Color "red") (Position 0 3)),
  (Circle (Color "blue") (Position 2 5))] []
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 2 0) Down),
  (Square (Color "red") (Position 4 2) LeftD)]
  )),
@@ -93,7 +93,7 @@ levels = [
  Board [(Circle (Color "red") (Position 1 1)),
  (Circle (Color "black") (Position 2 2)),
  (Circle (Color "blue") (Position 3 3))] []
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 0 1) RightD),
  (Square (Color "red") (Position 1 0) Down),
  (Square (Color "black") (Position 2 1) Down)]
@@ -103,7 +103,7 @@ levels = [
  Board [(Circle (Color "red") (Position 1 1)),
  (Circle (Color "blue") (Position 2 2)),
  (Circle (Color "black") (Position 3 3))] []
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 0 1) RightD),
  (Square (Color "red") (Position 1 0) Down),
  (Square (Color "black") (Position 2 1) Down)]
@@ -113,7 +113,7 @@ levels = [
  Board [(Circle (Color "black") (Position 0 0)),
  (Circle (Color "blue") (Position 1 1)),
  (Circle (Color "red") (Position 2 3))] []
- ,
+ emptyBox,
  State [(Square (Color "black") (Position 2 2) Up),
  (Square (Color "blue") (Position 4 1) LeftD),
  (Square (Color "red") (Position 3 0) Down)]
@@ -123,7 +123,7 @@ levels = [
  Board [(Circle (Color "blue") (Position 2 0))]
  [(Arrow (Position 0 2) RightD),
  (Arrow (Position 2 2) Up)]
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 0 0) Down)]
  )),
  ("sq",
@@ -132,7 +132,7 @@ levels = [
  (Circle (Color "black") (Position 3 0))]
  [(Arrow (Position 0 2) RightD),
  (Arrow (Position 2 2) Up)]
- ,
+ emptyBox,
  State [(Square (Color "orange") (Position 0 0) Down),
  (Square (Color "black") (Position 0 2) Down)]
  )),
@@ -143,7 +143,7 @@ levels = [
  [(Arrow (Position 3 1) LeftD),
  (Arrow (Position 0 1) RightD),
  (Arrow (Position 2 1) Up)]
- ,
+ emptyBox,
  State [(Square (Color "orange") (Position 0 1) Down),
  (Square (Color "blue") (Position 2 1) Down)]
  )),
@@ -153,7 +153,7 @@ levels = [
  (Circle (Color "red") (Position 1 2)),
  (Circle (Color "blue") (Position 3 2))]
  [(Arrow (Position 2 2) RightD)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 2 0) Down),
  (Square (Color "blue") (Position 4 2) LeftD),
  (Square (Color "black") (Position 2 4) Up)]
@@ -164,7 +164,7 @@ levels = [
  (Circle (Color "blue") (Position 2 2)),
  (Circle (Color "black") (Position 3 2))]
  [(Arrow (Position 2 0) Down)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 0) RightD),
  (Square (Color "blue") (Position 4 0) LeftD),
  (Square (Color "black") (Position 2 4) Up)]
@@ -175,7 +175,7 @@ levels = [
  (Circle (Color "black") (Position 1 1))]
  [(Arrow (Position 1 0) Down),
  (Arrow (Position 3 1) LeftD)]
- ,
+ emptyBox,
  State [(Square (Color "orange") (Position 0 2) RightD),
  (Square (Color "black") (Position 2 3) Up)]
  )),
@@ -185,7 +185,7 @@ levels = [
  (Circle (Color "black") (Position 1 0)),
  (Circle (Color "blue") (Position 1 2))]
  [(Arrow (Position 1 1) Down)]
- ,
+ emptyBox,
  State [(Square (Color "orange") (Position 3 3) LeftD),
  (Square (Color "black") (Position 1 1) Down),
  (Square (Color "blue") (Position 2 5) Up)]
@@ -198,7 +198,7 @@ levels = [
  (Arrow (Position 2 0) Down),
  (Arrow (Position 2 1) LeftD),
  (Arrow (Position 1 2) Up)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 0) Down),
  (Square (Color "blue") (Position 2 1) Down)]
  )),
@@ -210,7 +210,7 @@ levels = [
  (Arrow (Position 2 0) Down),
  (Arrow (Position 2 1) LeftD),
  (Arrow (Position 1 2) Up)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 2 0) Down),
  (Square (Color "blue") (Position 1 2) Down)]
  )),
@@ -220,7 +220,7 @@ levels = [
  (Circle (Color "blue") (Position 1 1)),
  (Circle (Color "black") (Position 2 2)),
  (Circle (Color "orange") (Position 2 0))] []
- ,
+ emptyBox,
  State [(Square (Color "black") (Position 1 0) Down),
  (Square (Color "orange") (Position 0 1) RightD),
  (Square (Color "red") (Position 2 1) LeftD),
@@ -233,7 +233,7 @@ levels = [
  [(Arrow (Position 0 0) Down),
  (Arrow (Position 0 1) RightD),
  (Arrow (Position 3 0) LeftD)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 0) Down),
  (Square (Color "blue") (Position 2 2) Up)]
  )),
@@ -244,7 +244,7 @@ levels = [
  (Circle (Color "blue") (Position 1 2))]
  [(Arrow (Position 0 0) Down),
  (Arrow (Position 0 1) RightD)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 0) Down),
  (Square (Color "blue") (Position 2 2) Up),
  (Square (Color "black") (Position 3 0) LeftD)]
@@ -258,7 +258,7 @@ levels = [
  (Arrow (Position 0 1) RightD),
  (Arrow (Position 3 0) LeftD),
  (Arrow (Position 2 2) Up)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 0) Down),
  (Square (Color "blue") (Position 3 0) Down),
  (Square (Color "black") (Position 0 1) Down)]
@@ -272,7 +272,7 @@ levels = [
  (Arrow (Position 0 1) RightD),
  (Arrow (Position 3 0) LeftD),
  (Arrow (Position 2 2) Up)]
- ,
+ emptyBox,
  State [(Square (Color "black") (Position 0 0) Down),
  (Square (Color "blue") (Position 3 0) Down),
  (Square (Color "red") (Position 0 1) Down)]
@@ -286,7 +286,7 @@ levels = [
  (Arrow (Position 0 1) RightD),
  (Arrow (Position 3 0) LeftD),
  (Arrow (Position 2 2) Up)]
- ,
+ emptyBox,
  State [(Square (Color "black") (Position 0 0) Down),
  (Square (Color "blue") (Position 3 0) Down),
  (Square (Color "red") (Position 0 1) Down)]
@@ -303,7 +303,7 @@ levels = [
  (Arrow (Position 4 0) LeftD),
  (Arrow (Position 3 1) Up),
  (Arrow (Position 4 1) Up)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 3 1) Down),
  (Square (Color "blue") (Position 3 0) Down),
  (Square (Color "black") (Position 0 1) Down),
@@ -320,7 +320,7 @@ levels = [
  (Arrow (Position 2 0) LeftD),
  (Arrow (Position 0 4) Up),
  (Arrow (Position 2 2) Up)]
- ,
+ emptyBox,
  State [(Square (Color "black") (Position 0 0) Down),
  (Square (Color "green") (Position 0 2) Down),
  (Square (Color "gray") (Position 2 2) Down),
@@ -338,7 +338,7 @@ levels = [
  (Arrow (Position 0 2) Up),
  (Arrow (Position 0 3) Down),
  (Arrow (Position 0 4) RightD)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 4) Down),
  (Square (Color "green") (Position 2 4) Down),
  (Square (Color "gray") (Position 0 0) Down),
@@ -353,7 +353,7 @@ levels = [
  (Arrow (Position 4 1) LeftD),
  (Arrow (Position 2 0) Down),
  (Arrow (Position 2 4) Up)]
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 1 0) Down),
  (Square (Color "black") (Position 0 2) Down),
  (Square (Color "red") (Position 4 1) Down)]
@@ -367,7 +367,7 @@ levels = [
  (Arrow (Position 4 1) LeftD),
  (Arrow (Position 3 0) Down),
  (Arrow (Position 3 4) Up)]
- ,
+ emptyBox,
  State [(Square (Color "black") (Position 1 0) Down),
  (Square (Color "red") (Position 0 2) Down),
  (Square (Color "blue") (Position 4 1) Down)]
@@ -381,7 +381,7 @@ levels = [
  (Arrow (Position 3 2) LeftD),
  (Arrow (Position 2 0) Down),
  (Arrow (Position 2 4) Up)]
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 2 0) Down),
  (Square (Color "black") (Position 1 1) Down),
  (Square (Color "red") (Position 3 2) Down)]
@@ -398,7 +398,7 @@ levels = [
  (Arrow (Position 3 5) Up),
  (Arrow (Position 1 3) Down),
  (Arrow (Position 1 4) RightD)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 2) Down),
  (Square (Color "black") (Position 2 4) Down),
  (Square (Color "blue") (Position 1 3) Down)]
@@ -415,7 +415,7 @@ levels = [
  (Arrow (Position 3 5) Up),
  (Arrow (Position 1 3) Down),
  (Arrow (Position 1 4) RightD)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 2) Down),
  (Square (Color "black") (Position 2 4) Down),
  (Square (Color "blue") (Position 1 3) Down)]
@@ -429,7 +429,7 @@ levels = [
  [(Arrow (Position 2 0) Down),
  (Arrow (Position 4 2) LeftD),
  (Arrow (Position 2 4) Up)]
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 2 0) Down),
  (Square (Color "black") (Position 4 2) Down),
  (Square (Color "orange") (Position 2 4) Down),
@@ -442,7 +442,7 @@ levels = [
  (Arrow (Position 1 0) Down),
  (Arrow (Position 1 4) Up),
  (Arrow (Position 4 3) LeftD)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 2) Down),
  (Square (Color "blue") (Position 1 0) Down),
  (Square (Color "black") (Position 4 1) Down)]
@@ -454,7 +454,7 @@ levels = [
  (Arrow (Position 1 0) Down),
  (Arrow (Position 1 4) Up),
  (Arrow (Position 4 3) LeftD)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 2) Down),
  (Square (Color "blue") (Position 1 0) Down),
  (Square (Color "black") (Position 4 1) Down)]
@@ -467,7 +467,7 @@ levels = [
  (Arrow (Position 1 0) Down),
  (Arrow (Position 1 4) Up),
  (Arrow (Position 4 3) LeftD)]
- ,
+ emptyBox,
  State [(Square (Color "red") (Position 0 2) Down),
  (Square (Color "blue") (Position 1 0) Down),
  (Square (Color "black") (Position 4 1) Down)]
@@ -481,7 +481,7 @@ levels = [
  (Arrow (Position 3 0) LeftD),
  (Arrow (Position 0 3) RightD),
  (Arrow (Position 2 3) Up)]
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 2 3) Down),
  (Square (Color "red") (Position 0 3) Down),
  (Square (Color "black") (Position 0 0) Down)]
@@ -495,7 +495,7 @@ levels = [
  (Arrow (Position 0 3) RightD),
  (Arrow (Position 2 3) Up),
  (Arrow (Position 3 1) LeftD)]
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 0 1) Down),
  (Square (Color "black") (Position 0 3) Down),
  (Square (Color "red") (Position 2 3) Down)]
@@ -509,7 +509,7 @@ levels = [
  (Arrow (Position 1 3) RightD),
  (Arrow (Position 3 3) Up),
  (Arrow (Position 4 1) LeftD)]
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 1 1) Down),
  (Square (Color "black") (Position 1 3) Down),
  (Square (Color "red") (Position 3 3) Down)]
@@ -524,7 +524,7 @@ levels = [
  (Arrow (Position 0 2) RightD),
  (Arrow (Position 3 1) LeftD),
  (Arrow (Position 2 3) Up)]
- ,
+ emptyBox,
  State [(Square (Color "blue") (Position 0 2) Down),
  (Square (Color "red") (Position 2 3) Down),
  (Square (Color "black") (Position 3 1) Down),
@@ -539,7 +539,7 @@ levels = [
  (Arrow (Position 0 3) RightD),
  (Arrow (Position 3 4) Up),
  (Arrow (Position 4 1) LeftD)]
- ,
+ emptyBox,
  State [(Square (Color "black") (Position 2 4) RightD),
  (Square (Color "orange") (Position 0 4) RightD),
  (Square (Color "red") (Position 1 4) RightD)]

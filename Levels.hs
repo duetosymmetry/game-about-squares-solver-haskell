@@ -33,7 +33,8 @@ cleanDirtyLevel (name, (b@(Board circs arrs _), State sqs)) =
 levels = map cleanDirtyLevel [
  ("hi",
  (
- Board [(Circle (Color "red") (Position 0 2))] [] emptyBox,
+ Board [(Circle (Color "red") (Position 0 2))] []
+ emptyBox,
  State [(Square (Color "red") (Position 0 0) Down)]
  )),
  ("hi2",

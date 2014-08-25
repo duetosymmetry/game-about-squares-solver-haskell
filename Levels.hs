@@ -27,7 +27,7 @@ allLevels = map fst levels
 hiddenLevels = allLevels \\ origLevels
 
 cleanDirtyLevel (name, (b@(Board circs arrs _), State sqs)) =
-  (name, (Board circs arrs $ padBox (computeBoardBox b) (length sqs),
+  (name, (setBoardPadBox b (length sqs - 1),
           State (setArrows arrs sqs)))
 
 levels = map cleanDirtyLevel [

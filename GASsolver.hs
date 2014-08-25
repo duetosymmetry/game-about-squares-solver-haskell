@@ -134,6 +134,10 @@ padBox (Box xmin xmax ymin ymax) pad =
 setBoardPadBox b@(Board circs arrs _) =
   Board circs arrs . padBox (computeBoardBox b)
 
+allSquaresInBoardBox (Board _ _ box) (State sqs) =
+  all squareInBox sqs
+  where squareInBox (Square _ pos _) = inBox box pos
+
 ----------------------------------------------------------------------
 -- Possibilities for solving
 ----------------------------------------------------------------------
@@ -141,8 +145,10 @@ setBoardPadBox b@(Board circs arrs _) =
 -- All the possible resulting states from an individual state, along with
 -- which color was pushed and the hash of the state whence they came
 possibilities board state@(State sqs) =
-  [(pushedState board state i, colorOf $ sqs !! i , Just $ hash state)
-    | i <- [0..(length sqs - 1)]]
+  [(pushedStateBoard, colorOf $ sqs !! i , Just $ hash state)
+    | i <- [0..(length sqs - 1)],
+      let pushedStateBoard = pushedState board state i,
+        allSquaresInBoardBox board pushedStateBoard ]
     where colorOf (Square (Color c) _ _) = c
 
 -- This is the set of *unique* possibilities resulting from a list states

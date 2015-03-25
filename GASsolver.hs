@@ -98,7 +98,7 @@ setArrow (Arrow arrPos d) = map setArrow1
                                     | otherwise   = s
 
 -- From a list of arrows, set correct all the squares' directions
-setArrows arrows sqs = foldl (flip setArrow) sqs arrows
+setArrows arrows sqs = foldl' (flip setArrow) sqs arrows
 
 -- Get the pushed state when the ith square is pushed
 pushedState (Board _ arrs _) (State sqs) i =
